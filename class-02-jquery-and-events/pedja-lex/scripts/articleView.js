@@ -83,7 +83,16 @@ articleView.handleMainNav = function() {
   //       single .tab-content section that is associated with the clicked .tab element.
   //       So: You need to dynamically build a selector string with the correct ID, based on the
   //       data available to you on the .tab element that was clicked.
-  $('.main-nav').on(/* CODE GOES HERE */);
+  $('.main-nav .tab').on('click', function() {
+    var $tabContent = $('.tab-content');
+    var $dataContent = $(this).attr('data-content');
+    console.log($tabContent);
+    console.log($dataContent);
+    $tabContent.hide();
+    $tabContent.filter('#' + $dataContent).show();
+
+
+  });
 
   $('.main-nav .tab:first').click(); // Let's now trigger a click on the first .tab element, to set up the page.
 };
@@ -104,4 +113,5 @@ $(function() {
   articleView.populateFilters();
   articleView.handleAuthorFilter();
   articleView.handleCategoryFilter();
+  articleView.handleMainNav();
 });
