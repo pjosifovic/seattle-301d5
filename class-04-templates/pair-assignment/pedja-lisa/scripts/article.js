@@ -9,12 +9,18 @@ function Article (opts) {
   this.publishedOn = opts.publishedOn;
 }
 
+Article.prototype.toFilter = function() {
+  var template = Handlebars.compile($('#article-filter').text());
+  return template(this);
+}
+
+
 Article.prototype.toHtml = function() {
   // DONE: Use handlebars to render your articles.
   //       - Get your template from the DOM.
   //       - Now "compile" your template with Handlebars.
   var template = Handlebars.compile($('#article-template').text());
-  
+
 
 
   // DONE: If your template will use properties that aren't on the object yet, add them.
@@ -38,5 +44,6 @@ rawData.forEach(function(ele) {
 })
 
 articles.forEach(function(a){
+  $('#articles').append(a.toFilter())
   $('#articles').append(a.toHtml())
 });
