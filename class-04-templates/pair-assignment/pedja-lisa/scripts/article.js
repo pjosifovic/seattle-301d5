@@ -14,6 +14,7 @@ Article.prototype.toHtml = function() {
   //       - Get your template from the DOM.
   //       - Now "compile" your template with Handlebars.
   var template = Handlebars.compile($('#article-template').text());
+  
 
 
   // DONE: If your template will use properties that aren't on the object yet, add them.
@@ -25,6 +26,7 @@ Article.prototype.toHtml = function() {
 
   // DONE: Use the function that Handlebars gave you to return your filled-in html template for THIS article.
   return template(this);
+
 };
 
 rawData.sort(function(a,b) {
