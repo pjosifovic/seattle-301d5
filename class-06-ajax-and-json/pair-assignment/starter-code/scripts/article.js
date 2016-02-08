@@ -31,12 +31,13 @@ Article.prototype.toHtml = function() {
 // DONE: This function will take the rawData, how ever it is provided,
 // and use it to instantiate all the articles. This code is moved from elsewhere, and
 // encapsulated in a simply-named function for clarity.
-Article.loadAll = function(rawData) {
-  rawData.sort(function(a,b) {
+Article.loadAll = function(data) {
+  // console.log(data);
+  data.sort(function(a,b) {
     return (new Date(b.publishedOn)) - (new Date(a.publishedOn));
   });
 
-  rawData.forEach(function(ele) {
+  data.forEach(function(ele) {
     Article.all.push(new Article(ele));
   })
 }
@@ -44,19 +45,56 @@ Article.loadAll = function(rawData) {
 // This function will retrieve the data from either a local or remote source,
 // and process it, then hand off control to the View.
 Article.fetchAll = function() {
-  if (localStorage.rawData) {
+  if (localStorage.articles) {
+    // console.log('we have localStorage.articles');
+
+    $.ajax({
+      type: 'HEAD',
+      url: 'data/hackerIpsum.json',
+      success: function(data, message, xhr){
+        // console.log(xhr);
+        var eTag = xhr.getResponseHeader('eTag'); //allows us to grab eTag from xhr object
+        if (!localStorage.eTag || eTag !== localStorage.eTag){
+          localStorage.eTag = eTag;
+        } else {
+          Article.loadAll(JSON.parse(localStorage.articles));
+          // method that will render our index page components (articleView)
+          //run Article.loadAll() in console
+        }
+      }
+
+
+    });
+
     // When rawData is already in localStorage,
     // we can load it with the .loadAll function above,
     // and then render the index page (using the proper method on the articleView object).
-    Article.loadAll(//TODO: What do we pass in here to the .loadAll function?
-    );
-    articleView.someFunctionToCall; //TODO: What method do we call to render the index page?
+
+    Article.loadAll(JSON.parse(localStorage.articles));//TODO: What do we pass in here to the .loadAll function?
+
+    articleView.initIndexPage(); //TODO: What method do we call to render the index page?
   } else {
+
+    $.getJSON('data/hackerIpsum.json', function(data) {
+      //to do after response
+        var stringData = JSON.stringify(data)
+        localStorage.setItem('articles', stringData);
+        Article.loadAll(JSON.parse(localStorage.articles));
+        articleView.initIndexPage();
+
+        // 1) load all data
+        // 2) setup localStorage to contain data
+        // 3) initilize the index page = render the content
+    });
+
+
+
     // TODO: When we don't already have the rawData,
     // we need to retrieve the JSON file from the server with AJAX (which jQuery method is best for this?),
     // cache it in localStorage so we can skip the server call next time,
     // then load all the data into Article.all with the .loadAll function above,
     // and then render the index page.
 
+    //HINT - getJSON call, UPDATE DOM
   }
 }
