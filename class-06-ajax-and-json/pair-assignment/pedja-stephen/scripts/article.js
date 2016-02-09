@@ -56,8 +56,15 @@ Article.fetchAll = function() {
         var eTag = xhr.getResponseHeader('eTag'); //allows us to grab eTag from xhr object
         if (!localStorage.eTag || eTag !== localStorage.eTag){
           localStorage.eTag = eTag;
+          $.getJSON('data/hackerIpsum.json', function(data) {
+            var stringData = JSON.stringify(data)
+            localStorage.setItem('articles', stringData);
+            Article.loadAll(JSON.parse(localStorage.articles));
+            articleView.initIndexPage();
+          });
         } else {
           Article.loadAll(JSON.parse(localStorage.articles));
+          articleView.initIndexPage();
           // method that will render our index page components (articleView)
           //run Article.loadAll() in console
         }
@@ -70,9 +77,9 @@ Article.fetchAll = function() {
     // we can load it with the .loadAll function above,
     // and then render the index page (using the proper method on the articleView object).
 
-    Article.loadAll(JSON.parse(localStorage.articles));//DONE: What do we pass in here to the .loadAll function?
+    //DONE: What do we pass in here to the .loadAll function?
 
-    articleView.initIndexPage(); //DONE: What method do we call to render the index page?
+     //DONE: What method do we call to render the index page?
   } else {
 
     $.getJSON('data/hackerIpsum.json', function(data) {
