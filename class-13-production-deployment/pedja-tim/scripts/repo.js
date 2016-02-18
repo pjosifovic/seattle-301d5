@@ -3,7 +3,6 @@
 
   repos.all = [];
 
-  // DONE: Refactor this ajax call into a get request to the proxy end point provided by server.js.
   repos.requestRepos = function(callback) {
     $.get('/github/users/pjosifovic/repos', function(data, message, xhr) {
         repos.all = data;
