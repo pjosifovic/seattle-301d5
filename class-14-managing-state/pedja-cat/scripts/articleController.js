@@ -27,6 +27,16 @@
   };
 
   // COMMENT: What does this method do?  What is it's execution path?
+  // loadByAuthor is a method attached to the articlesController object.
+  // It takes 2 params, context -ctx and next.
+  // It contains function authorData with one param "articlesByAuthor".
+  // Function is assinging a new property to the ctx object and givin it a value of articlesByAuthor.
+  // Then next() is called, which is articlesController.index()
+  // After this is done, findWhere(), which is a method on a Article obj is being called
+  // and it takes 3 parameters( field, value, callback). in this instance field is 'author',
+  // value is ctx object's params object's value key of authorName and uses .replace with REGEX
+  // that replaces '+' between authors first and last name in the URL
+  // callback is authorData which is described above.
   articlesController.loadByAuthor = function(ctx, next) {
     var authorData = function(articlesByAuthor) {
       ctx.articles = articlesByAuthor;
@@ -37,6 +47,15 @@
   };
 
   // COMMENT: What does this method do?  What is it's execution path?
+  // loadByCategory is a method attached to the articlesController object.
+  // It takes 2 params, context -ctx and next.
+  // It contains function categoryData with one param "articlesInCategory".
+  // Function is assinging a new property to the ctx object and givin it a value of articlesInCategory.
+  // Then next() is called, which is articlesController.index()
+  // After this is done, findWhere(), which is a method on a Article obj is being called
+  // and it takes 3 parameters( field, value, callback). in this instance field is 'category',
+  // value is ctx object's params object's value key of categoryName
+  // callback is categoryData which is described above.
   articlesController.loadByCategory = function(ctx, next) {
     var categoryData = function(articlesInCategory) {
       ctx.articles = articlesInCategory;
