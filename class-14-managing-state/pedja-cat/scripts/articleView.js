@@ -138,6 +138,9 @@
   //It then removes all of the article tags withtin the elmenet that has the ID articles.
   //For each item in the articles array we run a function upon them to append them to the now empty of children articles ID
   //Each item within the array is rendered (which we described in a previous comment).
+  //populateFilters and handleFilters are both methods called that we described above.
+  //If there is greater than 1 article within the articles id section's article than you hide all of the children except for 
+  //the first two elements within the body of the article.
   articleView.index = function(articles) {
     $('#articles').show().siblings().hide();
 
@@ -148,6 +151,7 @@
 
     articleView.populateFilters();
     // COMMENT: What does this method do?  What is it's execution path?
+
     articleView.handleFilters();
 
     // DONE: Replace setTeasers with just the truncation logic, if needed:
