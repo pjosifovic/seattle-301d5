@@ -66,6 +66,20 @@
   };
 
   // COMMENT: What does this method do?  What is it's execution path?
+  // loadByAll is a method attached to the articlesController object.
+  // It takes 2 params, context -ctx and next.
+  // It contains function articleData with one param "allArticles".
+  // Function is assinging a new property to the ctx object and givin it a value as all array that is attached to the Article obj constructor,
+  // but its not being called unless there's NO content in Article.all array.
+  // Then next() is called, which is articlesController.index()
+  // if there IS any content in Article.all array then identical functionallity as articleData() is run.
+  // if there NO content in Article.all array then Article.fetchAll() is being call with articleData callback.
+  // fetchAll() selects all the articles order by pubdate and if there are any rows in the table, content is
+  // loading(Article.loadAll) into Article.all array and return new Article element.
+  // else ajax call is being run to fetch data from the local json file.
+  // instantiate an article based on the item from JSON. --> put the article it in the table
+  // Article.loadAll() is run as well as callback() = articleData.
+
   articlesController.loadAll = function(ctx, next) {
     var articleData = function(allArticles) {
       ctx.articles = Article.all;
