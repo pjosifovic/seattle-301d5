@@ -8,6 +8,15 @@
   };
 
   // COMMENT: What does this method do?  What is it's execution path?
+  // loadById is a method attached to the articlesController object.
+  // It takes 2 params, context -ctx and next.
+  // It contains function articleData with one param "article".
+  // Function is assinging a new property to the ctx object and givin it a value of article.
+  // Then next() is called, which is articlesController.index()
+  // After this is done, findWhere(), which is a method on a Article obj is being called
+  // and it takes 3 parameters( field, value, callback). in this instance field is 'id',
+  // value is ctx object's params object's value of key id.
+  // callback is articleData which is described above.
   articlesController.loadById = function(ctx, next) {
     var articleData = function(article) {
       ctx.articles = article;
