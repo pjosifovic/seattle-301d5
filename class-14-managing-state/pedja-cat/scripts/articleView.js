@@ -13,6 +13,13 @@
   };
 
   // COMMENT: What does this method do?  What is it's execution path?
+  //populateFilters is a method assigned to the atricleView object. It contains two declared variables options and template
+  //template is equal to Handlebars.compile whose function is to compile the text within the JQuery object that has the id of option-template
+  //Options is equal to a fucntion called Article.allAuthors which returns an array of author names. The map array method is
+  //used on this array which runs a function as its parameter. The function takes author as its parameter and returns a variable
+  //that take a key value pair of val (key), and author (value) (which itself is created using the template function described above)
+  //ONLY IF the author the JQuery object has a value of 1. This is necesary to prevent duplication. If that is the case it
+  //appends a new author to the filter.
   articleView.populateFilters = function() {
     var options,
       template = Handlebars.compile($('#option-template').text());
