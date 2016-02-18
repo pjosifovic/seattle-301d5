@@ -45,6 +45,14 @@
   };
 
   // COMMENT: What does this method do?  What is it's execution path?
+//handleFilters is a method assigned to the atricleView object.
+//The .one method works upon the JQuery object (#filters). Its says that when there is any change on the select tag
+//it will run the function that sets resource equal to the input id (for example author-filter) and then removing the
+//-filter fron the select id.
+//Then the page function is called setting the route to /resource variable/whatever value we have in the option tag
+//and all the spaces are being replaced by the plus sign.
+//an example of this would be /author/Kat+Beame
+
   articleView.handleFilters = function() {
     $('#filters').one('change', 'select', function() {
       resource = this.id.replace('-filter', '');
@@ -125,6 +133,11 @@
   };
 
   // COMMENT: What does this method do?  What is it's execution path?
+  //index is a method assigned to the atricleView object with a parameter of articles. It takes the Jquery object #articles and displays it but hides all of
+  //its siblings.
+  //It then removes all of the article tags withtin the elmenet that has the ID articles.
+  //For each item in the articles array we run a function upon them to append them to the now empty of children articles ID
+  //Each item within the array is rendered (which we described in a previous comment).
   articleView.index = function(articles) {
     $('#articles').show().siblings().hide();
 

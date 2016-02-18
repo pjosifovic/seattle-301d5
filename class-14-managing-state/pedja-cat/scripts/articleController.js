@@ -81,7 +81,7 @@
   // Article.loadAll() is run as well as callback() = articleData.
 
   articlesController.loadAll = function(ctx, next) {
-    var articleData = function(allArticles) {
+    var articleData = function(allArticles) { //NOTE that this parameter is not necesary as it is never used!
       ctx.articles = Article.all;
       next();
     };
